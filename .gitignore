@@ -1,0 +1,9 @@
+node_modules
+
+.cache
+build
+public/build
+sessions
+.DS_Store
+.Trash-1000
+mysite/
