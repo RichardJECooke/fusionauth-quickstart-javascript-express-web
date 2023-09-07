@@ -18,21 +18,10 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-const auth = require('services/auth'); //TODO
-const passport = auth.setupAndGetPassport(app);
-
-const loginRouter = require('./routes/login'); //TODO
-const logoutRouter = require('./routes/logout');
-const accountRouter = require('./routes/account');
-const changeRouter = require('./routes/change');
-const authCallbackRouter = require('./routes/auth.callback');
+const auth = require('services/auth'); //todo
+auth.setupPassport(app);
 
 app.use('/', indexRouter);
-app.use('/login', loginRouter);
-app.use('/logout', logoutRouter);
-app.use('/account', accountRouter);
-app.use('/change', changeRouter);
-app.use('/callback', authCallbackRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

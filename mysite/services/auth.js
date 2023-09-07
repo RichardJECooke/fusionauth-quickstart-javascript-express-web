@@ -3,7 +3,7 @@ const session = require('express-session');
 const passport = require('passport');
 const oauthStrategy = require('passport-oauth2');
 
-function setupAndGetPassport(app) {
+function setupPassport(app) {
   app.use(
     session({
       secret: 's3cr3t',
@@ -43,8 +43,6 @@ function setupAndGetPassport(app) {
 
   app.use(passport.initialize()); // init passport on every route call
   app.use(passport.session()); //allow passport to use "express-session"
-
-  return passport;
 }
 
-module.exports = setupAndGetPassport;
+module.exports = setupPassport;
