@@ -4,12 +4,13 @@ const passport = require('passport');
 const router = express.Router();
 
 function checkAuthenticated(req, res, next) {
-  if (!req.isAuthenticated()) res.redirect('/login');
+  if (!req.isAuthenticated()) return res.redirect('/login');
   return next();
 }
 
 router.get('/', function (req, res, next) {
-  res.render('index', { title: 'Express' });
+  if (req.isAuthenticated()) return res.redirect('/account');
+  res.render('index', {});
 });
 
 router.get('/login', passport.authenticate('oauth2'));
@@ -23,16 +24,17 @@ router.get(
 );
 
 router.get('/logout', function (req, res, next) {
-  req.logOut();
-  res.redirect('/');
+  req.logOut(() => {
+    res.redirect('/');
+  });
 });
 
 router.get('/account', checkAuthenticated, function (req, res, next) {
-  res.render('account', { title: 'Express' });
+  res.render('account', { email: req.user });
 });
 
 router.get('/change', checkAuthenticated, function (req, res, next) {
-  res.render('change', { title: 'Express' });
+  res.render('change', { email: req.user });
 });
 
 module.exports = router;
