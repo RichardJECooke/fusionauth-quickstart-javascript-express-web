@@ -2,6 +2,7 @@ require('dotenv/config');
 const session = require('express-session');
 const passport = require('passport');
 const oauthStrategy = require('passport-oauth2');
+const jwt_decode = require('jwt-decode');
 
 function setupPassport(app) {
   app.use(
@@ -12,6 +13,8 @@ function setupPassport(app) {
     })
   );
 
+  app.use(passport.session());
+
   const authOptions = {
     authorizationURL: `${process.env.AUTH_URL}/authorize`,
     tokenURL: `${process.env.AUTH_URL}/token`,
@@ -21,15 +24,15 @@ function setupPassport(app) {
   };
 
   passport.use(
-    new oauthStrategy.Strategy.OAuth2Strategy(authOptions, function (
+    'oauth2',
+    new oauthStrategy.Strategy(authOptions, function (
       accessToken,
       refreshToken,
       profile,
-      cb
+      callback
     ) {
       const token = jwt_decode(accessToken);
-      const error = null;
-      return cb(error, token.email);
+      callback(null, token.email);
     })
   );
 
@@ -37,12 +40,9 @@ function setupPassport(app) {
     callback(null, user);
   });
 
-  passport.deserializeUser((user, done) => {
-    done(null, user);
+  passport.deserializeUser((user, callback) => {
+    callback(null, user);
   });
-
-  app.use(passport.initialize()); // init passport on every route call
-  app.use(passport.session()); //allow passport to use "express-session"
 }
 
 module.exports = setupPassport;

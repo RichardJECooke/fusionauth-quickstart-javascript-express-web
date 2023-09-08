@@ -1,17 +1,21 @@
-var router = express.Router();
+const express = require('express');
 const passport = require('passport');
 
+const router = express.Router();
+
 function checkAuthenticated(req, res, next) {
-  if (req.isAuthenticated()) return next();
-  res.redirect('/login');
+  if (!req.isAuthenticated()) res.redirect('/login');
+  return next();
 }
 
 router.get('/', function (req, res, next) {
   res.render('index', { title: 'Express' });
 });
 
+router.get('/login', passport.authenticate('oauth2'));
+
 router.get(
-  '/login',
+  '/auth/callback',
   passport.authenticate('oauth2', {
     successRedirect: '/account',
     failureRedirect: '/',
