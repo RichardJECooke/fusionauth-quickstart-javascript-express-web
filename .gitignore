@@ -1,4 +1,5 @@
 node_modules
+complete-application/node_modules
 .cache
 sessions
 .DS_Store
