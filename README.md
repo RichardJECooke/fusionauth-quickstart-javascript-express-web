@@ -28,7 +28,7 @@ In another terminal start the app.
 ```shell
 cd complete-application
 npm install
-npm run dev
+npm run start
 ```
 
 Browse to the app at http://localhost:3000.
