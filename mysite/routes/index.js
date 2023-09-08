@@ -1,6 +1,5 @@
 const express = require('express');
 const passport = require('passport');
-
 const router = express.Router();
 
 function checkAuthenticated(req, res, next) {
@@ -34,7 +33,22 @@ router.get('/account', checkAuthenticated, function (req, res, next) {
 });
 
 router.get('/change', checkAuthenticated, function (req, res, next) {
-  res.render('change', { email: req.user });
+  const state = { error: false, hasChange: false, total: '', nickels: '', pennies: '', email: req.user};
+  res.render('change', {state});
+});
+
+router.post('/change', checkAuthenticated, function (req, res, next) {
+  const amount = req.body.amount;
+  const state = { error: false, hasChange: true, total: '', nickels: '', pennies: ''};
+  const total = Math.trunc(parseFloat(amount)*100)/100;
+  state.total = isNaN(total) ? '' : total.toFixed(2);
+  const nickels = Math.floor(total / 0.05);
+  state.nickels = nickels.toLocaleString();
+  const pennies = ((total - (0.05 * nickels)) / 0.01);
+  state.pennies = Math.ceil((Math.trunc(pennies*100)/100)).toLocaleString();
+  state.error = ! /^(\d+(\.\d*)?|\.\d+)$/.test(amount);
+  state.email = req.user;
+  res.render('change', {state});
 });
 
 module.exports = router;
