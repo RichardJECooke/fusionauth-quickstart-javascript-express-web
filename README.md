@@ -2,13 +2,12 @@
 
 ## Documentation
 
-This repository is documented at https://fusionauth.io/docs/quickstarts/quickstart-javascript-remix-web.
+This repository is documented at https://fusionauth.io/docs/quickstarts/quickstart-javascript-express-web.
 
 Further reading:
-- [Remix Docs](https://remix.run/docs)
-- [Passport.js authentication concepts](https://www.passportjs.org/concepts/authentication/downloads/html/)
-- [Remix Auth](https://github.com/sergiodxa/remix-auth)
-- [Remix-Auth-Oauth2 Docs](https://github.com/sergiodxa/remix-auth-oauth2)
+- [Express security best practice](https://expressjs.com/en/advanced/best-practice-security.html)
+- [Passport.js authentication concepts](https://www.passportjs.org/concepts/authentication/downloads/html)
+- [Passport.js Oauth2](https://github.com/jaredhanson/passport-oauth2)
 - [FusionAuth OAuth Docs](https://fusionauth.io/docs/v1/tech/oauth/endpoints)
 
 ## Prerequisites
@@ -17,7 +16,7 @@ Install Docker and Node.js.
 
 ## How To Run
 
-In a terminal run the following to start fusionauth.
+In a terminal run the following to start FusionAuth.
 
 ```shell
 docker-compose up
