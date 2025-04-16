@@ -18,16 +18,15 @@ Install Docker and Node.js.
 
 In a terminal run the following to start FusionAuth.
 
-```shell
+```sh
 docker-compose up
 ```
 
 In another terminal start the app.
 
-```shell
+```sh
 cd complete-application
-npm install
-npm run start
+docker run  -it --rm --name "app" -v ".:/app" -w "/app" -p 3000:3000 --network faNetwork node:23-alpine3.19 sh -c  "npm install && npm run start"
 ```
 
 Browse to the app at http://localhost:3000.

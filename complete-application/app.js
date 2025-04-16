@@ -18,7 +18,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-require('./services/authentication')(app);
+require('./authentication')(app);
 
 app.use('/', indexRouter);
 
